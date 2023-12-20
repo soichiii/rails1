@@ -1,0 +1,41 @@
+<h3>予定の新規追加</h3>
+<% if flash[:notice] %>
+   <p class="notice"><%= flash.now[:notice] %></p>
+   
+ <% end %>
+
+<%= form_with model: @post do |f| %>
+
+  <table>
+    <tr>
+      <th><%= f.label :title ,"タイトル" %></th>
+      <td><%= f.text_field :title %></td>
+    </tr>
+
+    <tr>
+      <th><%= f.label :start ,"開始日" %></th>
+      <td><%= f.datetime_field :start %></td>
+    </tr>
+
+    <tr>
+      <th><%= f.label :finish ,"終了日" %></th>
+      <td><%= f.datetime_field :finish %></td>
+    </tr>
+
+    <tr>
+      <th><%= f.label :memo ,"スケジュールメモ" %></th>
+      <td><%= f.text_area :memo %></td>
+    </tr>
+  </table>
+  <div>
+  <%= f.label :finish_day ,"終日の場合はチェックを入れます" %>
+  <%=f.check_box :finish_day,{}, "⚪︎", "" %>
+ </div>
+
+  <div>
+    <ul>
+      <li><%= f.submit "保存"%></li>
+      <li><%= link_to "キャンセル", :posts %></li>
+    </ul>
+  </div>
+<% end %>
