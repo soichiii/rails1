@@ -4,10 +4,16 @@ class Post < ApplicationRecord
     validates :start, presence: true
     validates :finish, presence: true
     validates :memo, length: {maximum:500}
-    validates :start,:finish, presence: false , if: :start_finish_check
+    validate :start_finish_check
+
+    private
 
     def start_finish_check
-        errors.add(:finish, "は開始時刻より遅い時間を選択してください") if self.start > self.finish && start.nil?
+        return if start.blank? || finish.blank?
+
+        if finish <= start
+        errors.add(:finish, "は開始時刻より遅い時間を選択してください")
        end
+    end   
 
 end
